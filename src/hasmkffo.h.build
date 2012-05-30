@@ -1,0 +1,2 @@
+build_ifchanged choose compile load trymkffo.c hasmkffo.h1 hasmkffo.h2
+./choose cl trymkffo hasmkffo.h1 hasmkffo.h2

@@ -1,0 +1,106 @@
+# Assume:
+
+PATH="`pwd`:/command:$PATH"
+export PATH
+
+umask 022
+
+rm -rf rts-tmp
+mkdir rts-tmp
+cd rts-tmp
+
+try() {
+  { "$@" 2>&1; echo $?; } | sed 's/^\(.* fatal: .*:\)[^:]*$/\1.../'
+}
+
+sanitize() {
+  sed -e 's/^\(trigger-listen: pid\) [0-9]*$/\1 xxx/' \
+      -e 's/^\(trigger-listen: end\) [0-9]* \(.*\)$/\1 xxx \2/'
+}
+
+
+
+echo '--- trigger-pull prints message without arguments'
+try trigger-pull
+
+echo '--- trigger-pull pulls nonexistent trigger'
+try trigger-pull nonesuch
+
+echo '--- trigger-pull pulls non-fifo trigger'
+touch nonfifo
+try trigger-pull nonfifo
+cat -v nonfifo; echo ""
+
+echo '--- trigger-pull pulls fifo without listener'
+mkfifo fifo
+chmod 0644 fifo
+try trigger-pull fifo
+
+echo '--- trigger-listen prints message without enough arguments'
+try trigger-listen
+try trigger-listen fifo
+
+echo '--- trigger-listen prints message for nonexistent trigger'
+rm -f fifo
+try trigger-listen -D fifo echo hello world
+
+echo '--- trigger-listen -1 runs prog on startup'
+{ exec 2>&1
+  trigger-listen -v -1 fifo echo got trigger pull 1 &
+  pid=$!
+  sleep 3
+  kill -TERM $pid
+} | sanitize
+
+echo '--- trigger-listen pulls its own trigger'
+{ exec 2>&1
+  trigger-listen -v -t2 fifo sh -c 'echo got trigger pull 2' &
+  pid=$!
+  sleep 3
+  kill -TERM $pid
+} | sanitize
+
+echo '--- trigger-listen uses -i'
+{ exec 2>&1
+  trigger-listen -v -1 -i5 fifo sh -c 'echo got trigger pull 3' &
+  pid=$!
+  sleep 1
+  trigger-pull fifo
+  sleep 1
+  kill -TERM $pid
+} | sanitize
+
+echo '--- trigger-listen respects concurrency'
+{ exec 2>&1
+  trigger-listen -v -1 -c2 fifo sh -c 'echo got trigger pull 4; sleep 5' &
+  pid=$!
+  sleep 1
+  trigger-pull fifo
+  sleep 1
+  trigger-pull fifo
+  sleep 1
+  trigger-pull fifo
+  sleep 1
+  kill -TERM $pid
+} | sanitize
+
+echo '--- trigger-wait prints message with too few arguments'
+try trigger-wait
+
+echo '--- trigger-wait listens for trigger pull'
+( trigger-wait fifo && echo got trigger pull 5 ) &
+sleep 1
+trigger-pull fifo
+sleep 1
+
+echo '--- trigger-wait signals lack of trigger pull'
+try trigger-wait -t2 fifo echo hello world
+
+echo '--- trigger-wait propogates hears prog pull trigger'
+trigger-wait -t2 fifo trigger-pull fifo
+
+echo '--- trigger-wait prints message for nonexistent fifo'
+rm fifo
+try trigger-wait -D -t2 fifo echo hereur
+echo $?
+

@@ -1,0 +1,58 @@
+= Develop
+
+== The Package Structure
+
+This package follows some simple conventions for managing source code and
+documentation.
+
+=== Source Directories
+These directories are part of the repository or distribution tarball.
+
++src+::	    Where source code resides.
++doc+::	    Where documentation sources reside.
++package+:: Where packaging scripts reside.
+
+=== Build Directories
+These directories are created on demand as part of the build process.
+
++compile+::	Where source code is compiled.
++command+::	Where executables are copied.
++compile-doc+:: Where documentation is compiled.
++html+::	Where documentation is copied.
+
+=== Other Directories
+
++dist+:: Where versioned distribution files are copied.
+
+== Create A Distribution File
+
+A package distribution file contains a single package version configured for
+installation under +/package+.  To create the package, run the command:
+!!!!
+package/dist
+!!!!
+This creates a tarball in the +dist/+ directory.  The version comes from the
+last nonempty line in +package/versions+.  The path under +/package+ comes from
+the first line in +package/path+.  And the package name comes from the first
+line in +package/name+.
+
+It is customary to run +package/dist+ as root when preparing a package for
+distribution.
+
+
+== Create Makefiles
+These commands require the http://www.superscript.com/software/build/[build]
+package.
+
+Build +mkfile+ and replace +Makefile+ for the source directory:
+!!!!
+package/build mkfile
+cp compile/mkfile src/Makefile
+!!!!
+
+Create a Makefile for documentation in similar fashion:
+!!!!
+package/docs mkfile
+cp compile-doc/mkfile doc/Makefile
+!!!!
+

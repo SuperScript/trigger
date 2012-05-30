@@ -1,0 +1,2 @@
+20060603
+	Avoid busy loop when trigger pull occurs at full concurrency.

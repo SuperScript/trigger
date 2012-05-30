@@ -1,0 +1,11 @@
+#!/bin/sh
+shout() { echo "package/compile: $@" >&2; }
+barf() { shout "fatal: $@"; exit 111; }
+
+#### MAIN
+
+test -d package || barf "no package directory"
+exec package/build -b make ${1+"$@"}
+
+exit 111
+

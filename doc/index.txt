@@ -1,0 +1,28 @@
+= Introduction
+
+* How to link:install.html[install] trigger
+* The link:trigger-listen.html[+trigger-listen+] program
+* The link:trigger-pull.html[+trigger-pull+] program
+* The link:trigger-wait.html[+trigger-wait+] program
+* Developing link:develop.html[+trigger+]
+
+== What Is trigger?
+The trigger package contains tools for running programs on demand, invoked by
+external programs via data written to a fifo.
+
+== Features
+The +trigger-listen+ program listens to a fifo and runs an arbitrary program
+when it reads data from the fifo.
+
+The +trigger-pull+ program pulls a trigger.
+
+The +trigger-wait+ program listens to a fifo for a trigger pull and optionally
+runs a program.
+
+== License
+Files in this package are in the public domain.
+
+The trigger package comes with NO WARRANTY.
+
+
+

@@ -1,0 +1,62 @@
+--- trigger-pull prints message without arguments
+trigger-pull: usage: trigger-pull fifo
+100
+--- trigger-pull pulls nonexistent trigger
+trigger-pull: fatal: cannot open nonesuch:...
+111
+--- trigger-pull pulls non-fifo trigger
+0
+^@
+--- trigger-pull pulls fifo without listener
+trigger-pull: fatal: cannot open fifo:...
+111
+--- trigger-listen prints message without enough arguments
+trigger-listen: usage: trigger-listen [ -UdDqQv1 ] [ -c limit ] [ -t timeout ] [ -i interval ] [ -g gid ] [ -u uid ] path program
+100
+trigger-listen: usage: trigger-listen [ -UdDqQv1 ] [ -c limit ] [ -t timeout ] [ -i interval ] [ -g gid ] [ -u uid ] path program
+100
+--- trigger-listen prints message for nonexistent trigger
+trigger-listen: fatal: unable to read fifo:...
+111
+--- trigger-listen -1 runs prog on startup
+trigger-listen: status: 0/1
+trigger-listen: status: 1/1
+trigger-listen: pid xxx
+got trigger pull 1
+trigger-listen: end xxx status 0
+trigger-listen: status: 0/1
+--- trigger-listen pulls its own trigger
+trigger-listen: status: 0/1
+trigger-listen: status: 1/1
+trigger-listen: pid xxx
+got trigger pull 2
+trigger-listen: end xxx status 0
+trigger-listen: status: 0/1
+--- trigger-listen uses -i
+trigger-listen: status: 0/1
+trigger-listen: status: 1/1
+trigger-listen: pid xxx
+got trigger pull 3
+trigger-listen: end xxx status 0
+trigger-listen: status: 0/1
+--- trigger-listen respects concurrency
+trigger-listen: status: 0/2
+trigger-listen: status: 1/2
+trigger-listen: pid xxx
+got trigger pull 4
+trigger-listen: status: 2/2
+trigger-listen: pid xxx
+got trigger pull 4
+--- trigger-wait prints message with too few arguments
+trigger-wait: usage: trigger-wait [ -wWdD -t timeout ] fifo [ prog ]
+100
+--- trigger-wait listens for trigger pull
+got trigger pull 5
+--- trigger-wait signals lack of trigger pull
+hello world
+99
+--- trigger-wait propogates hears prog pull trigger
+--- trigger-wait prints message for nonexistent fifo
+trigger-wait: fatal: cannot read fifo:...
+111
+0

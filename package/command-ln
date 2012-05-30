@@ -1,0 +1,4 @@
+/package/host/superscript.com/command
+
+Directories to symlink commands into, one per line.
+The first empty line terminates the list.

@@ -1,0 +1,84 @@
+= trigger-listen (1)
+:doctype: manpage
+
+== NAME
+trigger-listen - listen to a fifo and run a command
+
+== SYNOPSIS
+!!!!
+trigger-listen [ -UdDqQv1 -c _limit_ -t _timeout_ -i _interval_ -g _gid_ -u _uid_ ] _path_ _prog_
+!!!!
+
+== DESCRIPTION
+The +trigger-listen+ program listens for input on the fifo +_path_+.  When
+it receives input +trigger-listen+ invokes +_prog_+ and continues to
+listen for input on +_path_+.  An external program pulls the trigger by
+writing a byte of data to +_path_+.  The +trigger-listen+ does not examine input
+data.
+
+== OPTIONS
+
+=== GENERAL OPTIONS
++-q+::
+Quiet.  Do not print error messages.
+
++-Q+:: 
+Print error messages. (Default)
+
++-v+::
+Verbose.  Print both status and error messages.
+
+
+=== LISTENING OPTIONS
++-1+::
+Execute +_prog_+ immediately upon startup.
+
++-c _limit_+::
+Execute at most +_limit_+ copies of +_prog_+ concurrently.  If a
+trigger pull occurs while +_limit_+ copies are running,
++trigger-listen+ executes +_prog_+ as soon as one of the running
+copies exits.
+
++-t _timeout_+::
+Wait at most +_timeout_+ seconds for a trigger pull.  If
++_timeout_+
+seconds elapse without a trigger pull, then +trigger-listen+ pulls
+its own trigger.  The default value of +_timeout_+
+is +(unsigned int)~0+.
+
++-i _interval_+::
+Wait at least +_interval_+ seconds between executions of
++_prog_+.  If
+it receives a trigger pull within +_interval_+ seconds of the last
+execution, +trigger-listen+ executes +_prog_+ when
++_interval_+
+seconds have elapsed.  The default value of +_interval_+ is 0.
+
++-g _gid_+::
+Switch group ID to +_gid_+ after preparing to receive trigger pulls.
+
++-u _uid_+::
+Switch user ID to +_uid_+ after preparing to receive connections.
+
++-U+::
+Same as +-g $GID -u $UID+.  Typically, +$GID+ and +$UID+ are
+set by http://cr.yp.to/daemontools/envuidgid.html[+envuidgid+].
+
++-d+:: 
+Delete.  Remove and recreate the fifo +_path_+ upon startup. (Default)
+
++-D+::
+No delete.  Do not remove and recreate +_path_+ upon startup.
+
+
+== EXIT STATUS
+The +trigger-listen+ program exits 111 for temporary errors and 100 for
+permanent errors.  It exits 0 on success or when terminated by signal.
+
+
+== EXAMPLES
+!!!!
+trigger-listen ./trigger echo \'Hello world!'
+!!!!
+
+
