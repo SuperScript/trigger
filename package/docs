@@ -7,9 +7,7 @@ safe() { "$@" || barf "cannot $*"; }
 
 umask 022
 
-here=`env - PATH=$PATH pwd`
-
 test -d package || barf "no package directory"
-exec package/build -c compile-doc -s doc -d html ${1+"$@"}
+exec package/build -c compile-doc -s doc -d html -b make ${1+"$@"}
 
 exit 111

@@ -52,7 +52,7 @@ cp compile/mkfile src/Makefile
 
 Create a Makefile for documentation in similar fashion:
 !!!!
-package/docs mkfile
+package/docs -b build mkfile
 cp compile-doc/mkfile doc/Makefile
 !!!!
 
