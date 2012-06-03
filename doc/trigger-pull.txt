@@ -24,4 +24,4 @@ trigger-pull ./trigger
 !!!!
 
 == SEE ALSO
-+mkfifo(1)+, +trigger-listen(1)+, +trigger-wait(1)+, +fifo(7)+
++mkfifo(1)+, link:trigger-listen.html[+trigger-listen(1)+], +trigger-wait(1)+, +fifo(7)+
