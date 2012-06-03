@@ -10,7 +10,7 @@ trigger-pull _path_
 !!!!
 
 == DESCRIPTION
-The +trigger-pull+ performs a non-blocking write of one byte of data to
+The +trigger-pull+ program performs a non-blocking write of one byte of data to
 +_path_+.
 
 == EXIT STATUS
@@ -23,6 +23,3 @@ lack of reader on the fifo +_path_+, treating these as successes.
 !!!!
 trigger-pull ./trigger
 !!!!
-
-
-

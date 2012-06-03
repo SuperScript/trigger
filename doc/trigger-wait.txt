@@ -2,7 +2,7 @@
 :doctype: manpage
 
 == NAME
-trigger-wait - listen to a trigger and optionally run a command
+trigger-wait - listen to a trigger and optionally execute a command
 
 == SYNOPSIS
 !!!!
@@ -11,15 +11,15 @@ trigger-wait [ -wWdD -t _timeout_ ] _path_ [ _prog_ ]
 
 
 == DESCRIPTION
-The +trigger-wait+ listens for input on the fifo +_path_+.  If +_prog_+ is
-present, +trigger-wait+ runs it and optionally waits for it to complete.  It
+The +trigger-wait+ program listens for input on the fifo +_path_+.  If +_prog_+ is
+present, +trigger-wait+ executes it and optionally waits for it to complete.  It
 then exits 0 if it received a trigger pull and 99 otherwise.
 
 
 === OPTIONS
 +-t _timeout_+::
 Wait at most +_timeout_+ seconds for a trigger pull.  If +_timeout_+
-seconds elapse without a trigger pull, then +trigger-listen+ pulls
+seconds elapse without a trigger pull, then +trigger-wait+ pulls
 its own trigger.  The default value of +_timeout_+
 is +(unsigned int)~0+.
 

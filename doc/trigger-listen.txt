@@ -2,7 +2,7 @@
 :doctype: manpage
 
 == NAME
-trigger-listen - listen to a fifo and run a command
+trigger-listen - listen to a fifo and execute a command
 
 == SYNOPSIS
 !!!!
