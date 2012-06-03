@@ -2,24 +2,26 @@
 :doctype: manpage
 
 == NAME
-trigger-pull - write a non-blocking byte to a fifo to pull a trigger
+trigger-pull - write a non-blocking byte to a fifo(7) to pull a trigger
 
 == SYNOPSIS
 !!!!
-trigger-pull _path_
++trigger-pull+ +_path_+
 !!!!
 
 == DESCRIPTION
-The +trigger-pull+ program performs a non-blocking write of one byte of data to
-+_path_+.
+The +trigger-pull+ program performs a non-blocking +write(2)+ of one byte of
+data to +_path_+.
 
 == EXIT STATUS
 The +trigger-pull+ program exits 100 for incorrect usage and 111 for temporary
-errors.  It does not retry if the write would have blocked and it ignores the
-lack of reader on the fifo +_path_+, treating these as successes.
-
+errors.  It does not retry if the +write(2)+ would have blocked and it ignores the
+lack of reader on the +fifo(7)+ +_path_+, treating these as successes.
 
 == EXAMPLES
 !!!!
 trigger-pull ./trigger
 !!!!
+
+== SEE ALSO
++mkfifo(1)+, +trigger-listen(1)+, +trigger-wait(1)+, +fifo(7)+
