@@ -1,0 +1,11 @@
+Source: trigger
+Section: devel
+Priority: optional
+Maintainer: Super Script <sst@superscript.com>
+Standards-Version: 0.1.0
+
+Package: trigger
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Unix utilities for event-based program execution.
+  Unix utilities for event-based program execution.
