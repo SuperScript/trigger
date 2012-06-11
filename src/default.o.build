@@ -7,6 +7,6 @@
 #fi
 #depend -$2=m
 
-build_ifchanged compile $2.c
-build_dependcc $2.c
-./compile $3 $2.c
+build_ifchanged compile "$2.c"
+build_dependcc "$2.c"
+./compile "$3" "$2.c"
