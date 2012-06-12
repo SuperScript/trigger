@@ -3,7 +3,7 @@ then
   build_ifchanged $1=x
   libscat=''
   objs=''
-  libs=`grep '\.lib *$' "$1=x" || exit 0`
+  libs="`grep '\.lib *$' "$1=x" || exit 0`"
   nonlib="`grep -v '\.lib *$' "$1=x" || exit 0`"
   for f in $nonlib
   do
@@ -30,11 +30,13 @@ fi
 if test -r $1=s
 then
   build_ifchanged $1=s makeinclude makescrip
-  scripts=`cat $1=s`
+  scripts="`cat $1=s`"
   if [ "X$scripts" = "X" ]
   then
     scripts="warn-auto.sh $1.sh"
   fi
+#  build_ifchanged `./makeinclude deps $scripts`
+  build_ifchanged $scripts
   build_ifchanged `./makeinclude deps $scripts`
   # FIXME: plumb
   ./makeinclude code $scripts | ./makescrip "$@"
@@ -56,8 +58,8 @@ case $1 in
     exit $?
     ;;
   it)
-    build_ifchanged $1=d
-    build_ifchanged `awk '{ print $1; }' <$1=d`
+    build_ifchanged "$1=d"
+    build_ifchanged `awk '{ print $1; }' <"$1=d"`
     build_notarget
     exit 0
     ;;
@@ -70,7 +72,7 @@ case $1 in
       build_ifcreated "$1=d"
     fi
     rm -f "$1.out"
-    sh "$1.run" >"$1.out" 2>&1
+    sh "$1.run" 2>&1 | cat -v >"$1.out"
     diff "$1.exp" "$1.out" || {
       echo "Test $1 failed.  Run diff $1.exp $1.out" >&2
       exit 1
@@ -117,27 +119,34 @@ case $1 in
     ;;
   mkfile)
     build_ifchanged mkfile=d
-    build_ifchanged `awk '{ print $1; }' <"$1=d"`
+    build_ifchanged `awk '{ print $1 }' <"$1=d"`
     safe printf "\n%s\n" "default: it"
-    safe build_list | while read f
-    do
-      safe printf "\n%s:" "$f"
-      safe build_list_deps "$f" | safe awk '
-	BEGIN { deps = 1 }
-        deps && !$1 { deps = 0; next }
-	deps { printf(" \\\n%s",$1); next }
-	!build { build = $1; next }
-	!base { base = $1; next }
-	{ next }
-	END { print "\n\tsh makefile.build " build " " target " " base }
-      ' target="$f"
-    done
+    safe build_info | safe awk '
+      BEGIN {
+	target = ""
+	build = ""
+	base = ""
+	state = 0
+      }
+      3 == state && "" == $1 {
+	if ("" == target || "" == build) exit 111
+	printf("\n\tsh makefile.build %s %s %s\n",build,target,base)
+	target = ""
+	build = ""
+	base = ""
+	state = 0
+	next
+      }
+      0 == state { target = $1; printf("\n%s:",target); state = 1; next }
+      1 == state { build = $1; state = 2; next }
+      2 == state { base = $1; state = 3; next }
+      { printf(" \\\n%s",$1); next }
+    ' target="$f"
     safe printf "\n%s:\n\t%s" 'clean' 'rm -f'
-    safe build_list | while read f
-    do
-      printf ' \\\n\t%s' "$f"
-    done
-    printf '\n'
+    safe build_list | safe awk '
+      { printf(" \\\n\t%s",$1) }
+      END { print "" }
+    '
     exit $?
     ;;
 esac
