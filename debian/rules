@@ -1,6 +1,12 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+DIR = ./debian/trigger
+
 %:
 	dh $@
+
+override_dh_install:
+	install -d -m 0755 $(DIR)/usr/bin
+	install -m 0755 command/* $(DIR)/usr/bin
 
