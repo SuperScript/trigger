@@ -7,5 +7,6 @@ Standards-Version: 0.1.0
 Package: trigger
 Architecture: any
 Depends: ${shlibs:Depends}
+Build-Depends: asciidoc
 Description: Unix utilities for event-based program execution.
   Unix utilities for event-based program execution.
