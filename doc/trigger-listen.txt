@@ -52,7 +52,10 @@ Wait at least +_interval_+ seconds between executions of
 it receives a trigger pull within +_interval_+ seconds of the last
 execution, +trigger-listen+ executes +_prog_+ when
 +_interval_+
-seconds have elapsed.  The default value of +_interval_+ is 0.
+seconds have elapsed.  This will not delay the first execution of
++_prog_+, so if the first trigger pull is within +_interval_+
+seconds of startup +_prog_+ will execute immediately unless -1 was
+specified.  The default value of +_interval_+ is 0.
 
 +-g _gid_+::
 Switch group ID to +_gid_+ after preparing to receive trigger pulls.

@@ -193,12 +193,13 @@ int main(int argc,char * const *argv) {
     strerr_die2sys(111,FATAL,"unable to set uid: ");
 
   printstatus();
-  if (flag1) doit(argv);
-
   flagqueue = 0;
   taia_now(&resume);
-  taia_uint(&deadline,interval);
-  taia_add(&resume,&resume,&deadline);
+  if (flag1) {
+    doit(argv);
+    taia_uint(&deadline,interval);
+    taia_add(&resume,&resume,&deadline);
+  }
 
   for (;;) {
     sig_unblock(sig_child);
