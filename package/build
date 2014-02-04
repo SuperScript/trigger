@@ -122,7 +122,7 @@ then
   safe awk '
     BEGIN {
       for (i = 1;i < ARGC;++i)
-	file[ARGV[i]] = 1
+        file[ARGV[i]] = 1
       ARGC = 1
     }
     { if (file[$1]) print $1 }
@@ -138,4 +138,3 @@ else
 fi
 
 exit 0
-

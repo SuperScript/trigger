@@ -27,7 +27,7 @@ build_dependcc() {
 }
 
 build_do() {
-  ( . "$build_it_cmds" "$1" "$2" "$3" > "$3" )
+  ( . "./$build_it_cmds" "$1" "$2" "$3" > "$3" )
 }
 
 build_it() {
@@ -35,14 +35,13 @@ build_it() {
   build_it_target="$2"
   build_it_base="$3"
   build_it_tmp="$build_it_target.tmp"
-  build_do "$build_it_target" "$build_it_base" "$build_it_tmp"  \
-    &&  {
-      [ -f "$build_it_tmp" ]  &&  mv "$build_it_tmp" "$build_it_target"
-    } \
-    ||  {
+  if build_do "$build_it_target" "$build_it_base" "$build_it_tmp"
+  then
+    [ -f "$build_it_tmp" ]  &&  safe mv "$build_it_tmp" "$build_it_target"
+  else
       rm -f "$build_it_tmp"
       return 111
-    }
+  fi
 
   return 0
 }
@@ -52,5 +51,5 @@ build_it() {
 
 # build_it cmds target base
 [ 1 -le $# ] || usage
-build_it "$@"
+safe build_it "$@"
 exit 0
