@@ -1,3 +1,9 @@
+trigger (0:0.67) trusty; urgency=low
+
+  * release 0.67 from alangrow.com
+
+ -- Alan Grow <agrow@iobound.net>  Sat, 18 Apr 2015 17:57:30 -0600
+
 trigger (0:0.66) unstable; urgency=low
 
   * release 0.66 from superscript.com
