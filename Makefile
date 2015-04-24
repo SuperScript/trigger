@@ -7,3 +7,6 @@ clean :
 install :
 	package/install
 
+dist :
+	sh src/tarsource.sh
+
