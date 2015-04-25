@@ -5,9 +5,7 @@
 trigger-pull - write a non-blocking byte to a fifo(7) to pull a trigger
 
 == SYNOPSIS
-!!!!
-+trigger-pull+ +_path_+
-!!!!
+*+trigger-pull+ +_path_+*
 
 == DESCRIPTION
 The +trigger-pull+ program performs a non-blocking +write(2)+ of one byte of
@@ -19,9 +17,8 @@ errors.  It does not retry if the +write(2)+ would have blocked and it ignores t
 lack of reader on the +fifo(7)+ +_path_+, treating these as successes.
 
 == EXAMPLES
-!!!!
-trigger-pull ./trigger
-!!!!
+*trigger-pull ./trigger*
 
 == SEE ALSO
 +mkfifo(1)+, link:trigger-listen.html[+trigger-listen(1)+], +trigger-wait(1)+, +fifo(7)+
+

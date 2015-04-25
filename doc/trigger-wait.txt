@@ -5,9 +5,7 @@
 trigger-wait - listen to a fifo(7) and optionally execute a command
 
 == SYNOPSIS
-!!!!
-+trigger-wait+ [ +-wWdD+ +-t+ _timeout_ ] _path_ [ _prog_ ]
-!!!!
+*+trigger-wait+ [ +-wWdD+ +-t+ _timeout_ ] _path_ [ _prog_ ]*
 
 
 == DESCRIPTION
@@ -43,9 +41,8 @@ temporary errors.  It exits 0 if it received a trigger pull, and 99 otherwise.
 == EXAMPLES
 Assume that the processor for +_/service/foo/log_+ pulls the trigger as its
 dying act:
-!!!!
-cd /service/foo && trigger-wait -t 5 ./trigger-rotate svc -a log
-!!!!
+
+*cd /service/foo && trigger-wait -t 5 ./trigger-rotate svc -a log*
 
 
 == SEE ALSO

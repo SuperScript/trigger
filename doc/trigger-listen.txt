@@ -6,9 +6,7 @@ trigger-listen - listen to a fifo(7) and execute a command
 
 
 == SYNOPSIS
-!!!!
-+trigger-listen+ [ +-UdDqQv1+ +-c+ +_limit_+ +-t+ +_timeout_+ +-i+ +_interval_+ +-g+ +_gid_+ +-u+ +_uid_+ ] +_path_+ +_prog_+
-!!!!
+*+trigger-listen+ [ +-UdDqQv1+ +-c+ +_limit_+ +-t+ +_timeout_+ +-i+ +_interval_+ +-g+ +_gid_+ +-u+ +_uid_+ ] +_path_+ +_prog_+*
 
 
 == DESCRIPTION
@@ -81,9 +79,7 @@ signal.
 
 
 == EXAMPLES
-!!!!
-+trigger-listen+ ./trigger echo \'Hello world!'
-!!!!
+*+trigger-listen+ ./trigger echo \'Hello world!'*
 
 
 == SEE ALSO
