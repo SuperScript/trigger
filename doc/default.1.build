@@ -1,0 +1,5 @@
+build_ifchanged "$2.txt"
+safe a2x -L -f manpage "$2.txt"
+safe cat "$1"   # a2x can't write to stdout? :/
+exit $?
+
