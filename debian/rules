@@ -9,4 +9,6 @@ DIR = ./debian/trigger
 override_dh_install:
 	install -d -m 0755 $(DIR)/usr/bin
 	install -m 0755 command/* $(DIR)/usr/bin
+	install -d -m 0755 $(DIR)/usr/share/man/man1
+	install -m 0644 doc/*.1 $(DIR)/usr/share/man/man1
 
