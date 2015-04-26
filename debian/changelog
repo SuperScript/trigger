@@ -1,3 +1,9 @@
+trigger (0:0.68) trusty; urgency=low
+
+  * release 0.68 from alangrow.com. man page fixes.
+
+ -- Alan Grow <agrow@iobound.net>  Sun, 26 Apr 2015 16:24:41 -0600
+
 trigger (0:0.67) trusty; urgency=low
 
   * release 0.67 from alangrow.com
