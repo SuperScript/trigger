@@ -5,3 +5,6 @@ trigger-pull.html
 trigger-wait.html
 develop.html
 asciidoc.css
+trigger-listen.1
+trigger-pull.1
+trigger-wait.1

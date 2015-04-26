@@ -40,6 +40,9 @@ install.html \
 trigger-listen.html \
 trigger-pull.html \
 trigger-wait.html \
+trigger-listen.1 \
+trigger-pull.1 \
+trigger-wait.1 \
 develop.html \
 asciidoc.css
 	sh makefile.build default.build it it
@@ -74,6 +77,15 @@ webpage.conf \
 attribute.conf
 	sh makefile.build default.html.build trigger-wait.html trigger-wait
 
+trigger-listen.1: trigger-listen.txt
+	sh makefile.build default.1.build trigger-listen.1 trigger-listen
+
+trigger-pull.1: trigger-pull.txt
+	sh makefile.build default.1.build trigger-pull.1 trigger-pull
+
+trigger-wait.1: trigger-wait.txt
+	sh makefile.build default.1.build trigger-wait.1 trigger-wait
+
 clean:
 	rm -f \
 	attribute.conf \
@@ -84,4 +96,7 @@ clean:
 	mkfile \
 	trigger-listen.html \
 	trigger-pull.html \
-	trigger-wait.html
+	trigger-wait.html \
+	trigger-listen.1 \
+	trigger-pull.1 \
+	trigger-wait.1

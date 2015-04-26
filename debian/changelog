@@ -1,0 +1,18 @@
+trigger (0:0.68) trusty; urgency=low
+
+  * release 0.68 from alangrow.com. man page fixes.
+
+ -- Alan Grow <agrow@iobound.net>  Sun, 26 Apr 2015 16:24:41 -0600
+
+trigger (0:0.67) trusty; urgency=low
+
+  * release 0.67 from alangrow.com
+
+ -- Alan Grow <agrow@iobound.net>  Sat, 18 Apr 2015 17:57:30 -0600
+
+trigger (0:0.66) unstable; urgency=low
+
+  * release 0.66 from superscript.com
+
+ -- Super Script <sst@superscript.com>  Mon, 04 Jun 2012 11:20:19 -0400
+
