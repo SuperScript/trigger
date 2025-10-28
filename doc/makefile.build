@@ -27,7 +27,7 @@ build_dependcc() {
 }
 
 build_do() {
-  ( . "$build_it_cmds" "$1" "$2" "$3" > "$3" )
+  ( . "./$build_it_cmds" "$1" "$2" "$3" > "$3" )
 }
 
 build_it() {
