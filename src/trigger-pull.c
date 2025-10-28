@@ -20,7 +20,7 @@ int main(int argc,char * const *argv) {
   file = *++argv;
   if (!file) usage();
 
-  fd = open_write(file);
+  fd = open_append(file);
   if (fd == -1)
     strerr_die4sys(111,FATAL,"cannot open ",file,": ");
   if (ndelay_on(fd) == -1)
