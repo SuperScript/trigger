@@ -2,50 +2,53 @@
 :doctype: manpage
 
 == NAME
-trigger-wait - listen to a trigger and optionally run a command
+trigger-wait - listen to a fifo(7) and optionally execute a command
 
 == SYNOPSIS
 !!!!
-trigger-wait [ -wWdD -t _timeout_ ] _path_ [ _prog_ ]
++trigger-wait+ [ +-wWdD+ +-t+ _timeout_ ] _path_ [ _prog_ ]
 !!!!
 
 
 == DESCRIPTION
-The +trigger-wait+ listens for input on the fifo +_path_+.  If +_prog_+ is
-present, +trigger-wait+ runs it and optionally waits for it to complete.  It
-then exits 0 if it received a trigger pull and 99 otherwise.
+The +trigger-wait+ program listens for input on the +fifo(7)+ +_path_+ using
++read(2)+.  If +_prog_+ is present, +trigger-wait+ executes +_prog_+ and
+optionally waits for it to complete.
 
 
 === OPTIONS
 +-t _timeout_+::
 Wait at most +_timeout_+ seconds for a trigger pull.  If +_timeout_+
-seconds elapse without a trigger pull, then +trigger-listen+ pulls
-its own trigger.  The default value of +_timeout_+
-is +(unsigned int)~0+.
+seconds elapse without a trigger pull, then +trigger-wait+ pulls
+its own trigger.  (Default: +(unsigned int)~0+)
 
 +-w+::
-Wait for +_prog_+ to complete. (Default)
+Wait for +_prog_+ to complete before exit. (Default)
 
 +-W+::
-Do not wait for +_prog_+ to complete.
+Do not wait for +_prog_+ to complete before exit.
 
 +-d+::
-Delete.  Remove and recreate the fifo +_path_+ upon startup.  (Default)
+Delete.  Remove and recreate the +fifo(7)+ +_path_+ upon startup.  (Default)
 
 +-D+::
 No delete.  Do not remove and recreate +_path_+ upon startup.
 
 
 == EXIT STATUS
-The +trigger-wait+ program exits 100 for permanent
-errors and 111 for temporary errors.  It exits 0 if it received a trigger pull,
-and 99 otherwise.
+The +trigger-wait+ program exits 100 for permanent errors and 111 for
+temporary errors.  It exits 0 if it received a trigger pull, and 99 otherwise.
 
 
 == EXAMPLES
-Assume that the processor for +/service/foo/log+ pulls the trigger as its dying
-act:
+Assume that the processor for +_/service/foo/log_+ pulls the trigger as its
+dying act:
 !!!!
 cd /service/foo && trigger-wait -t 5 ./trigger-rotate svc -a log
 !!!!
 
+
+== SEE ALSO
++mkfifo(1)+, link:trigger-pull.html[+trigger-pull(1)+],
+link:trigger-listen.html[+trigger-listen(1)+], +fifo(7)+, +multilog(8)+,
++svc(8)+
